@@ -12,9 +12,8 @@ RUN set -ex; \
 	fi
 
 # explicitly set user/group IDs
-RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=999 postgres
+RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=1001 postgres
 
-#USER 999
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
@@ -60,6 +59,8 @@ RUN apt-get update \
 		postgresql-$PG_MAJOR=$PG_VERSION \
 		postgresql-contrib-$PG_MAJOR=$PG_VERSION \
 	&& rm -rf /var/lib/apt/lists/*
+
+USER 1001
 
 # make the sample config easier to munge (and "correct by default")
 RUN mv -v /usr/share/postgresql/$PG_MAJOR/postgresql.conf.sample /usr/share/postgresql/ \
