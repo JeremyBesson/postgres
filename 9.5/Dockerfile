@@ -60,7 +60,6 @@ RUN apt-get update \
 		postgresql-contrib-$PG_MAJOR=$PG_VERSION \
 	&& rm -rf /var/lib/apt/lists/*
 
-USER 1001
 
 # make the sample config easier to munge (and "correct by default")
 RUN mv -v /usr/share/postgresql/$PG_MAJOR/postgresql.conf.sample /usr/share/postgresql/ \
@@ -76,6 +75,7 @@ VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
+USER 1001
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 5432
