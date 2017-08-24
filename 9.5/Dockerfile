@@ -12,7 +12,9 @@ RUN set -ex; \
 	fi
 
 # explicitly set user/group IDs
-RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=999 postgres
+RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=1001 postgres
+
+USER 1001:
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
