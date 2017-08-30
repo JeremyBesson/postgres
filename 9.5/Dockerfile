@@ -13,8 +13,8 @@ RUN set -ex; \
 
 # explicitly set user/group IDs
 #RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=1001 postgres
-RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=1001 postgres
-
+#RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=1001 postgres
+RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=1000080001 postgres
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
@@ -75,7 +75,7 @@ VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
-USER 1001
+USER 1000080001
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 5432
